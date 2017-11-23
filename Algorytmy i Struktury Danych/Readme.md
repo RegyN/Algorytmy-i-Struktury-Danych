@@ -1,0 +1,1 @@
+Cwiczenia do egzaminu z Algorytmów i Struktur Danych na wydziale Matematyki i Nauk Informacyjnych Politechniki Warszawskiej.
