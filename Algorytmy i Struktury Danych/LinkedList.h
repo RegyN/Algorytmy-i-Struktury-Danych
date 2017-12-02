@@ -13,26 +13,31 @@ struct Elem
 	}
 };
 
-// Standardowe wersje podstawowych funkcji do pracy na listach jednokierunkowych
-void InsertFirst(int val, Elem* &head);
+class LinkedList
+{
+public:
+	Elem* head;
 
-void InsertLast(int val, Elem* &head);
+	// Funkcje oznaczone DP wykorzystuj¹ podwójny wskaŸnik (Elem** )
 
-void PrintAll(Elem* head);
+	LinkedList();
+	// Podstawowe funkcji do pracy na listach jednokierunkowych
+	void InsertFirst(int val);
+	void InsertLast(int val);
+	void InsertLastDP(int val);
 
-Elem* DeleteFirst(Elem* &head);
+	void PrintAll();
 
-Elem* FindMax(Elem* head);
+	Elem* Search(int val);
+	Elem* FindMax();
+	Elem* FindMin();
 
-Elem* FindMin(Elem* head);
+	Elem* DeleteFirst();
+	Elem* DeleteLast();
+	Elem* DeleteMax();
+	Elem* DeleteMin();
 
-Elem* DeleteMax(Elem* &head);
-
-Elem* DeleteMin(Elem* &head);
-
-Elem* Search(int val, Elem* head);
-
-// Wersje kilku spoœród podstawowych funkcji, wykorzystuj¹ce podwójny wskaŸnik (Elem** )
-void InsertLastDP(int val, Elem* &head);
-
-// TODO: InsertIntoOrderedList w wersji zwyk³ej i DP, mo¿e jeszcze parê funkcji w wersji DP.
+	// Te funkcje do porawnego dzia³ania potrzebuj¹ listy posortowanej rosn¹co
+	void InsertOrdered(int val);
+	void InsertOrderedDP(int val);
+};

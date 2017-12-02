@@ -1,14 +1,18 @@
 #include "LinkedList.h"
 
+LinkedList::LinkedList()
+{
+	head = nullptr;
+}
 
-void InsertFirst(int val, Elem* &head)
+void LinkedList::InsertFirst(int val)
 {
 	Elem* pNew = new Elem(val);
 	pNew->next = head;
 	head = pNew;
 }
 
-void InsertLast(int val, Elem* &head)
+void LinkedList::InsertLast(int val)
 {
 	Elem* pNew = new Elem(val);
 	if (!head)
@@ -24,9 +28,21 @@ void InsertLast(int val, Elem* &head)
 	it->next = pNew;
 }
 
-void PrintAll(Elem* head)
+void LinkedList::InsertLastDP(int val)
+{
+	Elem* pNew = new Elem(val);
+	Elem** it = &head;
+	while (*it)
+	{
+		it = &((*it)->next);
+	}
+	*it = pNew;
+}
+
+void LinkedList::PrintAll()
 {
 	Elem* it = head;
+	cout << endl;
 	while (it)
 	{
 		cout << it->val << endl;
@@ -34,18 +50,7 @@ void PrintAll(Elem* head)
 	}
 }
 
-Elem* DeleteFirst(Elem* &head)
-{
-	Elem* p = head;
-	if (head)
-	{
-		head = head->next;
-		p->next = nullptr;
-	}
-	return p;
-}
-
-Elem* FindMax(Elem* head)
+Elem* LinkedList::FindMax()
 {
 	if (!head)
 		return nullptr;
@@ -64,7 +69,41 @@ Elem* FindMax(Elem* head)
 	return pMax;
 }
 
-Elem* FindMin(Elem* head)
+Elem* LinkedList::DeleteFirst()
+{
+	Elem* p = head;
+	if (head)
+	{
+		head = head->next;
+		p->next = nullptr;
+	}
+	return p;
+}
+
+Elem* LinkedList::DeleteLast()
+{
+	Elem* p = head;
+	Elem* pPrev = nullptr;
+	if (head == nullptr)
+	{
+		return nullptr;
+	}
+	if (head->next == nullptr)
+	{
+		p = head;
+		head = nullptr;
+		return p;
+	}
+	while (p->next)
+	{
+		pPrev = p;
+		p = p->next;
+	}
+	pPrev->next = nullptr;
+	return p;
+}
+
+Elem* LinkedList::FindMin()
 {
 	if (!head)
 		return nullptr;
@@ -83,7 +122,7 @@ Elem* FindMin(Elem* head)
 	return pMin;
 }
 
-Elem* DeleteMax(Elem* &head)
+Elem* LinkedList::DeleteMax()
 {
 	Elem* p = head;
 	Elem* pPrev = nullptr;
@@ -116,7 +155,7 @@ Elem* DeleteMax(Elem* &head)
 	return pMax;
 }
 
-Elem* DeleteMin(Elem* &head)
+Elem* LinkedList::DeleteMin()
 {
 	Elem* p = head;
 	Elem* pPrev = nullptr;
@@ -149,7 +188,7 @@ Elem* DeleteMin(Elem* &head)
 	return pMin;
 }
 
-Elem* Search(int val, Elem* head)
+Elem* LinkedList::Search(int val)
 {
 	Elem* p = head;
 	while (p)
@@ -163,13 +202,37 @@ Elem* Search(int val, Elem* head)
 	return nullptr;
 }
 
-void InsertLastDP(int val, Elem* &head)
+void LinkedList::InsertOrdered(int val)
 {
 	Elem* pNew = new Elem(val);
-	Elem** it = &head;
-	while (*it)
+	Elem* p = head;
+	if (p == nullptr)
 	{
-		it = &((*it)->next);
+		head = pNew;
+		return;
 	}
-	*it = pNew;
+	if (val < head->val)
+	{
+		pNew->next = head;
+		head = pNew;
+		return;
+	}
+	while (p->next && p->next->val < val)
+	{
+		p = p->next;
+	}
+	pNew->next = p->next;
+	p->next = pNew;
+}
+
+void LinkedList::InsertOrderedDP(int val)
+{
+	Elem* pNew = new Elem(val);
+	Elem** p = &head;
+	while (*p && (*p)->val < val)
+	{
+		p = &((*p)->next);
+	}
+	pNew->next = *p;
+	*p = pNew;
 }
